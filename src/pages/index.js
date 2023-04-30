@@ -1,56 +1,57 @@
-import React from "react"
-import fetch from "isomorphic-unfetch"
-import { GridContainer, Links, LinksImage, NotesContainer } from "@/styles/homepage/homepage"
-import Image from "next/legacy/image"
-import Link from "next/link"
+import React from "react";
+import { GridContainer, Links, LinksImage, NotesContainer } from "@/styles/homepage/homepage";
+import Image from "next/legacy/image";
+import Link from "next/link";
+import axios from 'axios';
 
 
-const HomePage=({notes})=>{
-  
-  return(
+export default function HomePage({ notes }) {
+  return (
     <>
-    <GridContainer>
-      {notes.map((note)=>{
-        return(
-        <ul key={note._id}>
-        <NotesContainer>
-        <LinksImage href={`/${note.title}`}>
-         <Image
-          layout="responsive" 
-          width={1000} 
-          height={500} 
-          src={note.imageUrl}
-          alt={note.title}
-        />         
-         </LinksImage> 
-        <Links href={`/${note.title}`}>
-          <h1>{note.title}</h1>
-        </Links>
-        </NotesContainer> 
-        </ul>
-        )
-      })}
-    </GridContainer>
+      <GridContainer>
+        {notes.map((note) => {
+          return (
+            <ul key={note._id}>
+              <NotesContainer>
+                <LinksImage href={`/${note.title}`}>
+                  <Image
+                    layout="responsive"
+                    width={1000}
+                    height={500}
+                    src={note.imageUrl}
+                    alt={note.title}
+                  />
+                </LinksImage>
+                <Links href={`/${note.title}`}>
+                  <h1>{note.title}</h1>
+                </Links>
+              </NotesContainer>
+            </ul>
+          );
+        })}
+      </GridContainer>
     </>
-  )
+  );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps() {
   const BASE_URL = process.env.BASE_URL;
-  const res = await fetch(`${BASE_URL}api/notes`)
-  const notesdata = await res.json()
-
-  if(!notesdata){
-
-      return {
-          notFound:true
-      }
-  }
-  return{
-      props:{
-          notes:notesdata
-      }
+  try {
+    const res = await fetch(`${BASE_URL}api/notes`, {
+      timeout: 1000000 // 10 seconds timeout
+    });
+    const notesdata = await res.json();
+    return {
+      props: {
+        notes: notesdata,
+      },
+      revalidate: 60, // Number of seconds after which to re-generate the page
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      notFound: true,
+    };
   }
 }
 
-export default HomePage
