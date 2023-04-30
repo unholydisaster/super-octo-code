@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { lq, mq } from "./Globals";
-import {Whatsapp,Twitter,Reddit,Linkedin,Telegram,FacebookCircle} from "styled-icons/boxicons-logos"
+import {Whatsapp,Twitter,Reddit,Linkedin,Telegram,FacebookCircle} from "@styled-icons/boxicons-logos"
 
 export const Linkdiv=styled.div`
 display:grid;
