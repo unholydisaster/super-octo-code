@@ -1,3 +1,4 @@
+/*
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import Link from "next/link"
@@ -112,3 +113,4 @@ const Carousel = ({ notedata}) => {
 };
 
 export default Carousel;
+*/

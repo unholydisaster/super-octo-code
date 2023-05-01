@@ -1,9 +1,7 @@
 import React from "react";
 import { GridContainer, Links, LinksImage, NotesContainer } from "@/styles/homepage/homepage";
 import Image from "next/legacy/image";
-import Link from "next/link";
-import axios from 'axios';
-
+import axios from "axios";
 
 export default function HomePage({ notes }) {
   return (
@@ -34,18 +32,15 @@ export default function HomePage({ notes }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const BASE_URL = process.env.BASE_URL;
   try {
-    const res = await fetch(`${BASE_URL}api/notes`, {
-      timeout: 1000000 // 10 seconds timeout
-    });
-    const notesdata = await res.json();
+    const res = await axios.get(`${BASE_URL}api/notes`);
+    const notesdata = res.data;
     return {
       props: {
         notes: notesdata,
-      },
-      revalidate: 60, // Number of seconds after which to re-generate the page
+      }
     };
   } catch (error) {
     console.error(error);
@@ -54,4 +49,5 @@ export async function getStaticProps() {
     };
   }
 }
+
 
