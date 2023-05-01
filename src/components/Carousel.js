@@ -1,5 +1,4 @@
-/*
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import Link from "next/link"
 import Image from "next/legacy/image"
@@ -39,7 +38,7 @@ ${mq[1]}{
   scroll-behavior: smooth;
 }
 
-  `;
+`;
 
 const Item = styled.div`
 height:xxx;
@@ -62,49 +61,47 @@ ${mq[1]}{
 }
 `;
 
-const Carousel = ({ notedata}) => {
-    const [scrollPosition, setScrollPosition] = useState(0);
-    const containerRef = useRef(null);
-    const intervalRef = useRef(null);
-  
-    const handleAutoScroll = () => {
-      intervalRef.current = setInterval(() => {
-        const container = containerRef.current;
-        if (container.scrollLeft + container.offsetWidth !== container.scrollWidth) {
-          setScrollPosition(prevScrollPosition => prevScrollPosition + 320);
-        } else {
-          setScrollPosition(0);
-        }
-      }, 3000);
-    };
-  
-    const handleStopAutoScroll = () => {
-      clearInterval(intervalRef.current);
-    };
+const Carousel = ({ notedata }) => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const interval = setInterval(() => {
+      if (container.scrollLeft + container.offsetWidth !== container.scrollWidth) {
+        setScrollPosition(prevScrollPosition => prevScrollPosition + 320);
+      } else {
+        setScrollPosition(0);
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleStopAutoScroll = () => {
+    clearInterval(intervalRef.current);
+  };
 
   return (
     <>
     <H1>Read more...</H1>
     <Container
-    ref={containerRef}
-    style={{ scrollLeft: scrollPosition }}
-    onMouseEnter={handleStopAutoScroll}
-    onMouseLeave={handleAutoScroll}
+      ref={containerRef}
+      style={{ scrollLeft: scrollPosition }}
+      onMouseEnter={handleStopAutoScroll}
     >
-    
       {notedata.map((item) => (
-        <Item  key={item._id}>
-         <Image
-          layout="responsive" 
-          width={1000} 
-          height={500}
-         
-          src={item.imageUrl}
-          alt={item.title}
-        />         
-        <Link href={`/${item.title}`}>
-          <h1>{item.title}</h1>
-        </Link>
+        <Item key={item._id}>
+          <Image
+            layout="responsive"
+            width={1000}
+            height={500}
+            src={item.imageUrl}
+            alt={item.title}
+          />
+          <Link href={`/${item.title}`}>
+            <h1>{item.title}</h1>
+          </Link>
         </Item>
       ))}
     </Container>
@@ -113,4 +110,4 @@ const Carousel = ({ notedata}) => {
 };
 
 export default Carousel;
-*/
+

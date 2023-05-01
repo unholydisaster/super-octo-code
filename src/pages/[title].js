@@ -4,9 +4,10 @@ import { ArticleContainer,Article } from "@/styles/articles/articlepage";
 import CodeBlock from "@/styles/codecontainers/highlighter";
 import remarkGfm from "remark-gfm";
 import axios from "axios"
+import Carousel from "@/components/Carousel.js";
 
 
-export default function NotesByTitle({ note,noteTitle,noteImage}) {
+export default function NotesByTitle({ note,notedata,noteTitle,noteImage}) {
   
   return(
     <> 
@@ -18,6 +19,7 @@ export default function NotesByTitle({ note,noteTitle,noteImage}) {
       remarkPlugins={[remarkGfm]}>
     {note}
     </Article>
+    <Carousel notedata={notedata}/>
     </ArticleContainer>
     </>
 
@@ -48,24 +50,22 @@ export async function getStaticProps({ params }) {
     
     const {data} = await axios.get(`${BASE_URL}api/notes/${title}`)
 
-    /*
-    const res = await fetch(`${BASE_URL}api/notes`)
-    const notesdata = await res.json()
+    const res = await axios.get(`${BASE_URL}api/notes`)
+    const notesdata = res.data
     const items = [...notesdata];
-
     // Shuffle the order of the items array using the Fisher-Yates shuffle algorithm
   
     for (let i = items.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [items[i], items[j]] = [items[j], items[i]];
     }
-    */
-
+    
     return {
       props: {
         note: data.note,
         noteTitle:data.title,
         noteImage:data.imageUrl,
+        notedata:items
       },
     };
   } catch (error) {
@@ -75,6 +75,7 @@ export async function getStaticProps({ params }) {
         note: "",
         noteTitle:"",
         noteImage:"",
+        notedata:""
       },
     };
   }
