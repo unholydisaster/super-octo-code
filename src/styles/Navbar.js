@@ -135,6 +135,8 @@ ${lq[2]}{
   position:absolute;
   border:none;
   color:white;
+  font-size:16px;
+  font-weight:700;
   left:75vw;
   background-color:inherit;
 }

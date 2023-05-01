@@ -20,7 +20,7 @@ ${mq[1]}{
 `
 const Container = styled.div`
 display: flex;
-width:100vw;
+width:inherit;
 margin-top:30px;
 height:300px;
 position:relative;
@@ -29,7 +29,7 @@ overflow-y:hidden;
 scroll-behavior: smooth;
 ${mq[1]}{
   display: flex;
-  width:100vw;
+  width:inherit;
   margin-top:0px;
   height:300px;
   position:relative;

@@ -32,7 +32,7 @@ export default function HomePage({ notes }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const BASE_URL = process.env.BASE_URL;
   try {
     const res = await axios.get(`${BASE_URL}api/notes`);
