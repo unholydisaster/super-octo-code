@@ -7,7 +7,7 @@ export const Nav = styled.div`
  ${lq[2]}{ 
     background:rgb(19,20,23);
     width:100%;
-    height:13vh;
+    height:10vh;
  }
   ${mq[0,1]}{
     background:rgb(19,20,23);
