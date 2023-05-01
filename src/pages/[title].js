@@ -47,25 +47,16 @@ export async function getStaticProps({ params }) {
   const { title } = params;
   const BASE_URL = process.env.BASE_URL;
   try {
-    
-    const {data} = await axios.get(`${BASE_URL}api/notes/${title}`)
-
-    const res = await axios.get(`${BASE_URL}api/notes`)
-    const notesdata = res.data
-    const items = [...notesdata];
-    // Shuffle the order of the items array using the Fisher-Yates shuffle algorithm
-  
-    for (let i = items.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [items[i], items[j]] = [items[j], items[i]];
-    }
-    
+    const {data} = await axios.get(`${BASE_URL}api/notes/${title}`);
+    const res = await axios.get(`${BASE_URL}api/notes`);
+    const notesdata = res.data.filter((note) => note.title !== title);
+    // Filter out the note that matches the title of the current page
     return {
       props: {
         note: data.note,
         noteTitle:data.title,
         noteImage:data.imageUrl,
-        notedata:items
+        notedata:notesdata
       },
     };
   } catch (error) {
@@ -80,5 +71,6 @@ export async function getStaticProps({ params }) {
     };
   }
 }
+
   
   
