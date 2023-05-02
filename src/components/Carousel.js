@@ -61,7 +61,7 @@ ${mq[1]}{
 }
 `;
 
-const Carousel = ({ notedata }) => {
+const Carousel = ({ notes }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const containerRef = useRef(null);
 
@@ -90,7 +90,7 @@ const Carousel = ({ notedata }) => {
       style={{ scrollLeft: scrollPosition }}
       onMouseEnter={handleStopAutoScroll}
     >
-      {notedata.map((item) => (
+      {notes.map((item) => (
         <Item key={item._id}>
           <Image
             layout="responsive"

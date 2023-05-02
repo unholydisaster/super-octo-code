@@ -6,9 +6,9 @@ import Link from "next/link";
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/router';
 
-
-const Navbar =()=>{
+const Navbar =({notes})=>{
     const[open, setOpen]=useState(false)
+    const[open1, setOpen1]=useState(false)
     const router=useRouter()
     const [cookies,setCookies]=useCookies(["access_token","userID"]);
     
@@ -21,6 +21,10 @@ const Navbar =()=>{
     const handleBurgerClick = () => {
         setOpen(!open);
       }; 
+      
+    const handleSearchOpen = () => {
+      setOpen1(!open1);
+    }; 
 
     const handleClick=()=>{
       router.push("/login")
@@ -44,7 +48,8 @@ const Navbar =()=>{
           alt="logo Image"
         /> 
         </Logo>
-        <SearchIcon/>
+        <SearchIcon onClick={handleSearchOpen} />
+        
         {!cookies.access_token?(
           <>        
            <AuthButton onClick={handleClick}>Admin</AuthButton>

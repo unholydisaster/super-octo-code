@@ -38,14 +38,15 @@ export const Div = styled.div`
 `;
 
 export const SearchIcon=styled(Search)`
+display:none;
+${mq[1]}{
+left:60%;
 position:absolute;
-left:68%;
 color:white;
 font-size:20px;
 width:25px;
 top:20px;
-${mq[1]}{
-  left:60%;
+z-index:999;
 }
 `
 

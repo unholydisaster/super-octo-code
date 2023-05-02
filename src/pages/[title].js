@@ -5,12 +5,14 @@ import CodeBlock from "@/styles/codecontainers/highlighter";
 import remarkGfm from "remark-gfm";
 import axios from "axios"
 import Carousel from "@/components/Carousel.js";
+import SearchComponent from "@/components/Search.js";
 
 
-export default function NotesByTitle({ note,notedata,noteTitle,noteImage}) {
+export default function NotesByTitle({ notes,note,noteTitle,noteImage}) {
   
   return(
     <> 
+    <SearchComponent notes={notes}/>
     <ShareButton noteTitle={noteTitle} noteImage={noteImage}/>
     <ArticleContainer>
     <Article 
@@ -19,7 +21,7 @@ export default function NotesByTitle({ note,notedata,noteTitle,noteImage}) {
       remarkPlugins={[remarkGfm]}>
     {note}
     </Article>
-    <Carousel notedata={notedata}/>
+    <Carousel notes={notes}/>
     </ArticleContainer>
     </>
 
@@ -56,7 +58,7 @@ export async function getStaticProps({ params }) {
         note: data.note,
         noteTitle:data.title,
         noteImage:data.imageUrl,
-        notedata:notesdata
+        notes:notesdata
       },
     };
   } catch (error) {

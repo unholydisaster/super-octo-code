@@ -2,10 +2,12 @@ import React from "react";
 import { GridContainer, Links, LinksImage, NotesContainer } from "@/styles/homepage/homepage";
 import Image from "next/legacy/image";
 import axios from "axios";
+import SearchComponent from "@/components/Search";
 
-export default function HomePage({ notes }) {
+export default function HomePage({ notes}) {
   return (
     <>
+    <SearchComponent notes={notes}/>
       <GridContainer>
         {notes.map((note) => {
           return (
