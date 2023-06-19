@@ -33,6 +33,7 @@ font-size:16px;
 export const GridContainer=styled.div`
 display:grid;
 grid-template-columns:repeat(3,1fr);
+grid-area: content;
 position:relative;
 width:95%;
 top:5px;
