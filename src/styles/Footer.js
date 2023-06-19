@@ -6,11 +6,10 @@ import Link from "next/link"
 export const FooterContainer = styled.footer`
   background:rgb(19,20,23);
   color: #fff;
-  display: grid;
+  display: flex;
   align-items: center;
   padding:20px;
-  grid-row-start: 2;
-  grid-row-end: 3;
+  grid-area: footer;
   ${mq[1]}{
     padding:0px;
   }
