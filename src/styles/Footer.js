@@ -37,3 +37,4 @@ ${mq[1]}{
   width:80vw;
   left:10vw;
 }
+`
