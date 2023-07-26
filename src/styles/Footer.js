@@ -7,9 +7,9 @@ export const FooterContainer = styled.footer`
   background:rgb(19,20,23);
   color: #fff;
   display: flex;
+  flex-direction: column;
   align-items: center;
   padding:20px;
-  grid-area: footer;
   ${mq[1]}{
     padding:0px;
   }
@@ -37,4 +37,3 @@ ${mq[1]}{
   width:80vw;
   left:10vw;
 }
-`
